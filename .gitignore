@@ -22,3 +22,18 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+
+# dotenv environment variables file
+.env
+.env.local
+.env.*.local
+
+# Vite cache
+.cache/
+
+# Vite build output
+dist/
+
+# Vite preview cache
+.preview/
