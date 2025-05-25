@@ -6,6 +6,10 @@ export interface CreateUserPayload {
   password: string;
 }
 
+export interface LoginPayload {
+  email: string;
+  password: string;
+}
 export const handleSignupUser = async (userData: CreateUserPayload) => {
   try {
     const response = await axios.post(
@@ -17,4 +21,12 @@ export const handleSignupUser = async (userData: CreateUserPayload) => {
     console.error("Error creating user", error);
     throw error;
   }
+};
+
+export const loginUser = async (data: LoginPayload) => {
+  const response = await axios.post(
+    `${import.meta.env.VITE_BACKEND_URL}/api/auth/login`,
+    data
+  );
+  return response.data;
 };

@@ -1,23 +1,33 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
-import axios from "axios";
+import { loginUser } from "../services/UserService";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    e.preventDefault();
+    setErrorMsg("");
+
     try {
-      await axios.post(
-        "http://localhost:3000/auth/login",
-        { email, password },
-        { withCredentials: true }
+      const res = await loginUser({ email, password });
+      console.log("Login response:", res);
+      localStorage.setItem("token", res.token);
+      localStorage.setItem(
+        "user",
+        JSON.stringify({ ...res.user, token: res.token })
       );
-      alert("Logged in");
-      window.location.href = "/dashboard";
-    } catch (err) {
-      alert("Login failed");
-      console.error(err);
+
+      console.log("Logging in, redirecting...");
+
+      navigate("/dashboard");
+    } catch (err: any) {
+      setErrorMsg(err.response?.data?.message || "Login failed.");
     }
   };
 
@@ -31,6 +41,12 @@ function Login() {
         <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
           Login
         </h2>
+        {errorMsg && (
+          <div className="mb-4 text-sm text-red-600 text-center">
+            {errorMsg}
+          </div>
+        )}
+
         <form onSubmit={handleLogin} className="space-y-4">
           <input
             type="email"
