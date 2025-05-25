@@ -25,7 +25,7 @@ function Login() {
 
       console.log("Logging in, redirecting...");
 
-      navigate("/dashboard");
+      navigate("/homefeed");
     } catch (err: any) {
       setErrorMsg(err.response?.data?.message || "Login failed.");
     }

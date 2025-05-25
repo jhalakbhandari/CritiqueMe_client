@@ -1,16 +1,18 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const navigate = useNavigate();
-  // Toggle dropdown open state
+
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
+
   const handleLogout = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
     navigate("/login");
   };
+
   return (
     <div>
       <nav className="bg-white dark:bg-gray-800 shadow">
@@ -18,13 +20,13 @@ const Header = () => {
           <div className="flex items-center justify-between h-16">
             {/* Left side logo */}
             <div className="flex items-center">
-              <a className="flex-shrink-0">
+              <Link to="/" className="flex-shrink-0">
                 <img
                   className="w-8 h-8"
                   // src="/icons/rocket.svg"
                   alt="Workflow"
                 />
-              </a>
+              </Link>
             </div>
 
             {/* Right side menu */}
@@ -85,28 +87,27 @@ const Header = () => {
               aria-orientation="vertical"
               aria-labelledby="options-menu"
             >
-              <a
-                href="#"
+              <Link
+                to="/settings"
                 className="block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600"
                 role="menuitem"
               >
                 Settings
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                to="/userfeed"
                 className="block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600"
                 role="menuitem"
               >
                 Account
-              </a>
-              <a
-                href="#"
-                className="block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600"
+              </Link>
+              <button
+                onClick={handleLogout}
+                className="block w-full text-left px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600"
                 role="menuitem"
-                onClick={() => handleLogout()}
               >
                 Logout
-              </a>
+              </button>
             </div>
           </div>
         )}

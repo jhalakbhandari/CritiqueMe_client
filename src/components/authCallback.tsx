@@ -21,7 +21,7 @@ const AuthCallback = () => {
       localStorage.setItem("user", JSON.stringify({ ...decoded, token }));
       localStorage.setItem("token", token);
       console.log("User saved in localStorage:", localStorage.getItem("user"));
-      navigate("/dashboard");
+      navigate("/homefeed");
     } else {
       // 🚨 Only redirect to login if no token AND no user in localStorage
       const userExists = localStorage.getItem("user");
