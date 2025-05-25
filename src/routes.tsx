@@ -4,20 +4,26 @@ import HomePage from "./pages/HomeFeed";
 import RegisterPage from "./pages/RegisterPage";
 import AuthCallback from "./components/authCallback";
 import PrivateRoute from "./layout/PrivateRoute";
+import MainLayout from "./layout/MainLayout";
 const AppRoutes = () => {
   return (
     <BrowserRouter>
       <Routes>
+        {/* Public Routes */}
+
         <Route path="/login" element={<Login />} />
         <Route path="/auth/callback" element={<AuthCallback />} />
         <Route
-          path="/dashboard"
           element={
             <PrivateRoute>
-              <HomePage />
+              <MainLayout />
             </PrivateRoute>
           }
-        />
+        >
+          <Route path="/dashboard" element={<HomePage />} />
+          {/* <Route path="/profile" element={<UserProfile />} />
+          <Route path="/add-project" element={<AddProject />} /> */}
+        </Route>
         <Route>
           <Route path="/register" element={<RegisterPage />} />
         </Route>
