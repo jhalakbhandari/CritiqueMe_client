@@ -6,10 +6,13 @@ import AuthCallback from "./components/authCallback";
 import PrivateRoute from "./layout/PrivateRoute";
 import MainLayout from "./layout/MainLayout";
 import UserFeed from "./pages/UserFeed";
+import RedirectOnRoot from "./components/RedirectOnRoot";
 const AppRoutes = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<RedirectOnRoot />} />
+
         {/* Public Routes */}
 
         <Route path="/login" element={<Login />} />
