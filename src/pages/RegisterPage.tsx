@@ -11,7 +11,7 @@ function RegisterPage() {
     e.preventDefault();
     try {
       alert("Registered successfully");
-      navigate("http://localhost:3000/homefeed");
+      navigate("/homefeed");
     } 
     catch (err) {
       alert("Registration failed");
