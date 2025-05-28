@@ -28,9 +28,12 @@ function UserFeed() {
       <div className="flex flex-col md:flex-row justify-center">
         {/* Left side (1/5) - Add Post button on large screens */}
         <div className="hidden md:flex md:w-1/5 justify-start pr-4">
-          <div className="sticky top-8 w-full">
+          <div className="sticky top-8 w-full space-y-1">
             <button className="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700">
               Add Post
+            </button>
+            <button className="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700">
+              See Draft Post
             </button>
           </div>
         </div>

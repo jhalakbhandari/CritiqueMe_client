@@ -88,19 +88,20 @@ const Header = () => {
               aria-labelledby="options-menu"
             >
               <Link
+                to="/userfeed"
+                className="block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600"
+                role="menuitem"
+              >
+                My Profile
+              </Link>
+              <Link
                 to="/settings"
                 className="block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600"
                 role="menuitem"
               >
                 Settings
               </Link>
-              <Link
-                to="/userfeed"
-                className="block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600"
-                role="menuitem"
-              >
-                Account
-              </Link>
+
               <button
                 onClick={handleLogout}
                 className="block w-full text-left px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600"
