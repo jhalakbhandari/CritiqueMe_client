@@ -1,8 +1,9 @@
 import { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { handleSignupUser } from "../services/UserService";
 
 function RegisterPage() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -10,6 +11,8 @@ function RegisterPage() {
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
+      const res = await handleSignupUser({name, email, password });
+      console.log("Login response:", res);
       alert("Registered successfully");
       navigate("/homefeed");
     } 
@@ -30,6 +33,16 @@ function RegisterPage() {
           Register
         </h2>
         <form onSubmit={handleRegister} className="space-y-5">
+          <div>
+            <input
+              type="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Name"
+              required
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
           <div>
             <input
               type="email"
