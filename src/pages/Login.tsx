@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { login } from "../services/authService";
+import { login } from "../services/AuthService";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -26,6 +26,9 @@ function Login() {
 
   const handleGoogleLogin = () => {
     window.location.href = "http://localhost:3000/api/auth/google";
+  };
+  const handleRegister = () => {
+    window.location.href = "http://localhost:5173/register";
   };
 
   return (
@@ -70,6 +73,14 @@ function Login() {
             className="w-full bg-red-500 text-white font-semibold py-2 px-4 rounded hover:bg-red-600 transition duration-200"
           >
             Login with Google
+          </button>
+        </div>
+        <div className="mt-6 text-center">
+          <button
+            onClick={handleRegister}
+            className="w-full bg-orange-500 text-white font-semibold py-2 px-4 rounded hover:bg-orange-600 transition duration-200"
+          >
+            Sign Up
           </button>
         </div>
       </div>
