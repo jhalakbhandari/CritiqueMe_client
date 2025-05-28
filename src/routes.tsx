@@ -6,6 +6,7 @@ import AuthCallback from "./components/authCallback";
 import PrivateRoute from "./layout/PrivateRoute";
 import MainLayout from "./layout/MainLayout";
 import UserFeed from "./pages/UserFeed";
+import Settings from "./pages/Settings";
 import RedirectOnRoot from "./components/RedirectOnRoot";
 const AppRoutes = () => {
   return (
@@ -26,6 +27,9 @@ const AppRoutes = () => {
         >
           <Route path="/homefeed" element={<HomePage />} />
           <Route path="/userfeed" element={<UserFeed />} />
+          <Route path="/settings" element={<Settings />} />
+          {/* Add more private routes here */}
+          {/* Example: */}
 
           {/* <Route path="/profile" element={<UserProfile />} />
           <Route path="/add-project" element={<AddProject />} /> */}
