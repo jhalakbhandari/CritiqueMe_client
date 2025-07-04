@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAllPosts, type CreatePostPayload } from "../services/PostsService";
+import {
+  getPostsByUserId,
+  type CreatePostPayload,
+} from "../services/PostsService";
 export type Post = CreatePostPayload & {
   id: string;
   userId: string;
@@ -21,7 +24,12 @@ function UserFeed() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await getAllPosts();
+        const userData = localStorage.getItem("user"); // assuming you stored user info as JSON
+        if (!userData) throw new Error("No user found in localStorage");
+
+        const parsedUser = JSON.parse(userData);
+        const userId = parsedUser.id;
+        const res = await getPostsByUserId(userId);
         console.log("Fetched posts:", res); // ✅ Check this!
         setPosts(res);
       } catch (err) {

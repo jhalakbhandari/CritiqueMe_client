@@ -62,3 +62,28 @@ export const getAllPosts = async () => {
     throw error;
   }
 };
+
+export const getPostsByUserId = async (userId: string) => {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    throw new Error("User is not authenticated");
+  }
+
+  try {
+    const response = await axios.get(
+      `${BACKEND_URL}/api/posts/submitted/${userId}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    // API returns: { message: "...", fetchedPosts: [...] }
+    return response.data.fetchedPosts;
+  } catch (error) {
+    console.error("Error fetching posts by userId:", error);
+    throw error;
+  }
+};
