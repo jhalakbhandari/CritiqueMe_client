@@ -1,29 +1,23 @@
-function HomePage() {
-  // Updated posts with title, description, and link
-  const posts = [
-    {
-      id: 1,
-      profileImg: "https://i.pravatar.cc/40?img=1", // placeholder avatar
-      title: "John Doe",
-      description: "This is the description for Post 1. Check out this link!",
-      link: "https://example.com/post1",
-    },
-    {
-      id: 2,
-      profileImg: "https://i.pravatar.cc/40?img=2",
-      title: "Jane Smith",
-      description: "Another interesting post description goes here.",
-      link: "https://example.com/post2",
-    },
-    {
-      id: 3,
-      profileImg: "https://i.pravatar.cc/40?img=3",
-      title: "Alex Johnson",
-      description: "Yet another post with a link to something cool.",
-      link: "https://example.com/post3",
-    },
-  ];
+import { useEffect, useState } from "react";
+import { getAllPosts } from "../services/PostsService";
+import type { Post } from "./UserFeed";
 
+function HomePage() {
+  const [posts, setPosts] = useState<Post[]>([]);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const res = await getAllPosts();
+        console.log("Fetched posts:", res); // ✅ Check this!
+        setPosts(res);
+      } catch (err) {
+        console.error("Error fetching posts:", err);
+      }
+    };
+
+    fetchPosts();
+  }, []);
   return (
     <div className="min-h-screen bg-gray-100  flex justify-center py-8">
       {/* Container with margins on large screen, full width on small */}

@@ -1,35 +1,48 @@
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { getAllPosts, type CreatePostPayload } from "../services/PostsService";
+export type Post = CreatePostPayload & {
+  id: string;
+  userId: string;
+  createdAt: string;
+  updatedAt?: string;
+  profileImg?: string;
+  link?: string;
+  user: {
+    id: string;
+    name: string;
+    email: string;
+  };
+  // Optional profileImg or other frontend-related fields can be added here too
+};
 function UserFeed() {
-  const posts = [
-    {
-      id: 1,
-      profileImg: "https://i.pravatar.cc/40?img=1",
-      title: "John Doe",
-      description: "This is the description for Post 1. Check out this link!",
-      link: "https://example.com/post1",
-    },
-    {
-      id: 2,
-      profileImg: "https://i.pravatar.cc/40?img=2",
-      title: "Jane Smith",
-      description: "Another interesting post description goes here.",
-      link: "https://example.com/post2",
-    },
-    {
-      id: 3,
-      profileImg: "https://i.pravatar.cc/40?img=3",
-      title: "Alex Johnson",
-      description: "Yet another post with a link to something cool.",
-      link: "https://example.com/post3",
-    },
-  ];
+  const [posts, setPosts] = useState<Post[]>([]);
 
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const res = await getAllPosts();
+        console.log("Fetched posts:", res); // ✅ Check this!
+        setPosts(res);
+      } catch (err) {
+        console.error("Error fetching posts:", err);
+      }
+    };
+
+    fetchPosts();
+  }, []);
+
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-gray-100 py-8 px-4">
       <div className="flex flex-col md:flex-row justify-center">
         {/* Left side (1/5) - Add Post button on large screens */}
         <div className="hidden md:flex md:w-1/5 justify-start pr-4">
           <div className="sticky top-8 w-full space-y-1">
-            <button className="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700">
+            <button
+              className="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
+              onClick={() => navigate("/posts/addPost")}
+            >
               Add Post
             </button>
             <button className="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700">

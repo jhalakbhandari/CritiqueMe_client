@@ -11,12 +11,11 @@ function RegisterPage() {
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res = await handleSignupUser({name, email, password });
-      console.log("Login response:", res);
+      await handleSignupUser({ name, email, password });
+      // console.log("Login response:", res);
       alert("Registered successfully");
       navigate("/homefeed");
-    } 
-    catch (err) {
+    } catch (err) {
       alert("Registration failed");
       console.error(err);
     }

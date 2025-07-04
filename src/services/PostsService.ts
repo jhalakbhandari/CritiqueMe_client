@@ -11,7 +11,7 @@ export interface CreatePostPayload {
 }
 
 export const getAuthToken = (): string | null => {
-  return localStorage.getItem("authToken");
+  return localStorage.getItem("token");
 };
 
 export const createPost = async (postData: CreatePostPayload) => {
@@ -34,6 +34,29 @@ export const createPost = async (postData: CreatePostPayload) => {
     );
 
     return response.data; // This should be your created post response
+  } catch (error) {
+    console.error("Error creating post:", error);
+    throw error;
+  }
+};
+
+export const getAllPosts = async () => {
+  // const token = await getAuthToken();
+  const token = localStorage.getItem("token");
+  if (!token) {
+    throw new Error("User is not authenticated");
+  }
+
+  try {
+    const response = await axios.get(`${BACKEND_URL}/api/posts`, {
+      // params: postData, // ✅ axios will convert this to URL query params
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data.posts; // This should be your created post response
   } catch (error) {
     console.error("Error creating post:", error);
     throw error;

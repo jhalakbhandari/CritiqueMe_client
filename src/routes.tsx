@@ -8,6 +8,7 @@ import MainLayout from "./layout/MainLayout";
 import UserFeed from "./pages/UserFeed";
 import Settings from "./pages/Settings";
 import RedirectOnRoot from "./components/RedirectOnRoot";
+import AddPostPage from "./pages/AddPostPage";
 const AppRoutes = () => {
   return (
     <BrowserRouter>
@@ -17,7 +18,7 @@ const AppRoutes = () => {
         {/* Public Routes */}
 
         <Route path="/login" element={<Login />} />
-        
+
         {/* Authentication check */}
         <Route path="/auth/callback" element={<AuthCallback />} />
         <Route
@@ -30,6 +31,8 @@ const AppRoutes = () => {
           <Route path="/homefeed" element={<HomePage />} />
           <Route path="/userfeed" element={<UserFeed />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/posts/addPost" element={<AddPostPage />} />
+
           {/* Add more private routes here */}
           {/* Example: */}
 
