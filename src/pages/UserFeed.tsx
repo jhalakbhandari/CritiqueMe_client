@@ -11,7 +11,7 @@ export type Post = CreatePostPayload & {
   updatedAt?: string;
   profileImg?: string;
   tags?: string[]; // Optional
-
+  isLikedInitially?: boolean;
   link?: string;
   user: {
     id: string;
