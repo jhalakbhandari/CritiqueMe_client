@@ -41,11 +41,12 @@ const Header = () => {
             {/* Left side logo */}
             <div className="flex items-center">
               <Link to="/" className="flex-shrink-0">
-                <img
+                {/* <img
                   className="w-8 h-8"
                   // src={profilePicUrl || "/default-profile.png"}
                   alt="Workflow"
-                />
+                /> */}
+                <a className="text-white text-2xl text-bold">Critique Me!</a>
               </Link>
             </div>
 
