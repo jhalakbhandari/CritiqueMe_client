@@ -11,7 +11,6 @@ function Login() {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    e.preventDefault();
     setErrorMsg("");
 
     try {
@@ -32,8 +31,22 @@ function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-yellow-50">
-      <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
+    <div
+      className="min-h-screen flex flex-col md:flex-row items-center justify-center"
+      style={{ backgroundColor: "rgb(1, 41, 95)" }}
+    >
+      {/* Left Side - Branding */}
+      <div className="text-white text-center md:text-left px-6 md:w-1/2 mb-8 md:mb-0">
+        <h1 className="text-4xl md:text-6xl font-extrabold mb-4">
+          Critique Me!
+        </h1>
+        <p className="text-lg md:text-2xl font-light">
+          Get reviews on your portfolio and grow with feedback.
+        </p>
+      </div>
+
+      {/* Right Side - Login Card */}
+      <div className="bg-white p-8 rounded shadow-md w-full max-w-md md:mr-10">
         <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
           Login
         </h2>
@@ -62,19 +75,23 @@ function Login() {
           />
           <button
             type="submit"
-            className="w-full bg-yellow-400 text-white font-semibold py-2 px-4 rounded hover:bg-yellow-500 transition duration-200"
+            className="w-full text-white font-semibold py-2 px-4 rounded hover:bg-yellow-500 transition duration-200"
+            style={{ backgroundColor: "rgb(1, 41, 95)" }}
           >
             Login
           </button>
         </form>
+
         <div className="mt-6 text-center">
           <button
             onClick={handleGoogleLogin}
-            className="w-full bg-red-500 text-white font-semibold py-2 px-4 rounded hover:bg-red-600 transition duration-200"
+            className="w-full text-white font-semibold py-2 px-4 rounded hover:bg-red-600 transition duration-200"
+            style={{ backgroundColor: "rgb(1, 41, 95)" }}
           >
             Login with Google
           </button>
         </div>
+
         <div className="mt-6 text-center">
           <button
             onClick={handleRegister}

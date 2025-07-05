@@ -9,7 +9,7 @@ function HomePage() {
     const fetchPosts = async () => {
       try {
         const res = await getAllPosts();
-        console.log("Fetched posts:", res); // ✅ Check this!
+        console.log("Fetched posts:", res);
         setPosts(res);
       } catch (err) {
         console.error("Error fetching posts:", err);
@@ -18,40 +18,80 @@ function HomePage() {
 
     fetchPosts();
   }, []);
+
+  const getTimeAgo = (dateStr: string) => {
+    const createdDate = new Date(dateStr);
+    const now = new Date();
+    const diffMs = now.getTime() - createdDate.getTime();
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+    if (diffDays === 0) return "Posted today";
+    if (diffDays === 1) return "Posted yesterday";
+    return `Posted ${diffDays}d ago`;
+  };
+
   return (
-    <div className="min-h-screen bg-gray-100  flex justify-center py-8">
-      {/* Container with margins on large screen, full width on small */}
-      <div className="w-full max-w-4xl px-4 md:px-0 md:w-3/5">
-        {/* Feed container */}
+    <div className="min-h-screen flex justify-center py-8">
+      <div className="w-full max-w-xl px-4 md:px-0 md:w-3/5">
         <div className="space-y-6">
-          {posts.map(({ id, profileImg, title, description, link }) => (
-            <div
-              key={id}
-              className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md"
-            >
-              <div className="flex items-center mb-4">
-                <img
-                  src={profileImg}
-                  alt={`${title} profile`}
-                  className="w-10 h-10 rounded-full mr-3"
-                />
-                <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-                  {title}
-                </h2>
-              </div>
-              <p className="text-gray-800 dark:text-gray-200 mb-3">
-                {description}
-              </p>
-              <a
-                href={link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 dark:text-blue-400 hover:underline"
-              >
-                Read more
-              </a>
-            </div>
-          ))}
+          {posts.map(
+            ({ id, user, title, description, media, tags, createdAt }) => {
+              const profilePicUrl = `${
+                import.meta.env.VITE_BACKEND_URL
+              }/api/user/${user?.id}/profile-picture?t=${Date.now()}`;
+
+              return (
+                <div
+                  key={id}
+                  className="bg-white p-6 rounded-lg shadow-md"
+                  style={{ backgroundColor: "rgb(1, 41, 95)" }}
+                >
+                  {/* Header */}
+                  <div className="flex items-center mb-2">
+                    <img
+                      src={profilePicUrl}
+                      alt={`${user?.name}'s profile`}
+                      className="w-10 h-10 rounded-full mr-3"
+                    />
+                    <div>
+                      <h2 className="text-lg font-semibold text-white">
+                        {title}
+                      </h2>
+                      <p className="text-sm text-gray-300">
+                        {createdAt ? getTimeAgo(createdAt) : "Posted recently"}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Description */}
+                  <p className="text-gray-100 mb-3">{description}</p>
+
+                  {/* Media */}
+                  <a
+                    href={media}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-300 underline break-words"
+                  >
+                    {media}
+                  </a>
+
+                  {/* Tags */}
+                  {Array.isArray(tags) && tags?.length > 0 && (
+                    <div className="flex flex-wrap mt-4 gap-2">
+                      {tags.map((tag, idx) => (
+                        <span
+                          key={idx}
+                          className="bg-blue-200 text-blue-900 px-3 py-1 rounded-full text-sm font-medium"
+                        >
+                          #{tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            }
+          )}
         </div>
       </div>
     </div>

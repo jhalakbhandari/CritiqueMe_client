@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../services/AuthService";
 
 const Header = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [profilePicUrl, setProfilePicUrl] = useState<string>("");
+
   const navigate = useNavigate();
 
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
@@ -13,9 +15,27 @@ const Header = () => {
     navigate("/login");
   };
 
+  useEffect(() => {
+    const userData = localStorage.getItem("user"); // assuming you stored user info as JSON
+    if (!userData) throw new Error("No user found in localStorage");
+
+    const parsedUser = JSON.parse(userData);
+    const userId = parsedUser.id;
+    if (!userId) return;
+
+    // Append timestamp to avoid caching issues
+    setProfilePicUrl(
+      `${
+        import.meta.env.VITE_BACKEND_URL
+      }/api/user/${userId}/profile-picture?t=${Date.now()}`
+    );
+  }, []);
   return (
     <div>
-      <nav className="bg-white dark:bg-gray-800 shadow">
+      <nav
+        className="bg-white shadow"
+        style={{ backgroundColor: "rgb(1, 41, 95)" }}
+      >
         <div className="px-8 mx-auto max-w-7xl">
           <div className="flex items-center justify-between h-16">
             {/* Left side logo */}
@@ -23,7 +43,7 @@ const Header = () => {
               <Link to="/" className="flex-shrink-0">
                 <img
                   className="w-8 h-8"
-                  // src="/icons/rocket.svg"
+                  // src={profilePicUrl || "/default-profile.png"}
                   alt="Workflow"
                 />
               </Link>
@@ -41,7 +61,7 @@ const Header = () => {
                   aria-haspopup="true"
                   aria-expanded={isDropdownOpen}
                 >
-                  <svg
+                  {/* <svg
                     width="20"
                     height="20"
                     fill="white"
@@ -50,7 +70,12 @@ const Header = () => {
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path d="M1523 1339q-22-155-87.5-257.5t-184.5-118.5q-67 74-159.5 115.5t-195.5 41.5-195.5-41.5-159.5-115.5q-119 16-184.5 118.5t-87.5 257.5q106 150 271 237.5t356 87.5 356-87.5 271-237.5zm-243-699q0-159-112.5-271.5t-271.5-112.5-271.5 112.5-112.5 271.5 112.5 271.5 271.5 112.5 271.5-112.5 112.5-271.5zm512 256q0 182-71 347.5t-190.5 286-285.5 191.5-349 71q-182 0-348-71t-286-191-191-286-71-348 71-348 191-286 286-191 348-71 348 71 286 191 191 286 71 348z" />
-                  </svg>
+                  </svg> */}
+                  <img
+                    src={profilePicUrl || "/default-profile.png"}
+                    alt="Profile"
+                    className="w-8 h-8 rounded-full object-cover border-2 border-white"
+                  />
                 </button>
               </div>
 
@@ -101,7 +126,13 @@ const Header = () => {
               >
                 Settings
               </Link>
-
+              <Link
+                to="/profilepic"
+                className="block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600"
+                role="menuitem"
+              >
+                Upload Profile Pic
+              </Link>
               <button
                 onClick={handleLogout}
                 className="block w-full text-left px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600"

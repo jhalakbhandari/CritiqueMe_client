@@ -9,6 +9,7 @@ import UserFeed from "./pages/UserFeed";
 import Settings from "./pages/Settings";
 import RedirectOnRoot from "./components/RedirectOnRoot";
 import AddPostPage from "./pages/AddPostPage";
+import AddProfilePic from "./pages/AddProfilePic";
 const AppRoutes = () => {
   return (
     <BrowserRouter>
@@ -32,6 +33,7 @@ const AppRoutes = () => {
           <Route path="/userfeed" element={<UserFeed />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/posts/addPost" element={<AddPostPage />} />
+          <Route path="/profilepic" element={<AddProfilePic />} />
 
           {/* Add more private routes here */}
           {/* Example: */}
