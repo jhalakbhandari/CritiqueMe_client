@@ -13,7 +13,7 @@ function HomePage() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await getAllPosts();
+        const res = await getAllPosts(userId);
         console.log("Fetched posts:", res);
         setPosts(res);
       } catch (err) {

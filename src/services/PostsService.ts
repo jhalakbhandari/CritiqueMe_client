@@ -40,7 +40,7 @@ export const createPost = async (postData: CreatePostPayload) => {
   }
 };
 
-export const getAllPosts = async () => {
+export const getAllPosts = async (userId: string) => {
   // const token = await getAuthToken();
   const token = localStorage.getItem("token");
   if (!token) {
@@ -48,13 +48,16 @@ export const getAllPosts = async () => {
   }
 
   try {
-    const response = await axios.get(`${BACKEND_URL}/api/posts`, {
-      // params: postData, // ✅ axios will convert this to URL query params
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await axios.get(
+      `${BACKEND_URL}/api/posts?userId=${userId}`,
+      {
+        // params: postData, // ✅ axios will convert this to URL query params
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
     return response.data.posts; // This should be your created post response
   } catch (error) {
