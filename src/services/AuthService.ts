@@ -1,4 +1,5 @@
 import axios from "axios";
+import type { Post } from "../pages/UserFeed";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000";
 const TOKEN_KEY = "token";
@@ -12,6 +13,11 @@ export interface LoginPayload {
 export interface User {
   id: string;
   email: string;
+  name: string;
+  profilepic?: string;
+  posts: Post[];
+  followers: { id: string }[];
+  following: { id: string }[];
 }
 
 export interface LoginResponse {

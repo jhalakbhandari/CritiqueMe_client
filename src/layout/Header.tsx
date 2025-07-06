@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../services/AuthService";
+import SearchComponent from "../components/SearchComponent";
 
 const Header = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -20,7 +21,7 @@ const Header = () => {
     if (!userData) throw new Error("No user found in localStorage");
 
     const parsedUser = JSON.parse(userData);
-    const userId = parsedUser.id;
+    const userId = parsedUser.id || {};
     if (!userId) return;
 
     // Append timestamp to avoid caching issues
@@ -40,16 +41,21 @@ const Header = () => {
           <div className="flex items-center justify-between h-16">
             {/* Left side logo */}
             <div className="flex items-center">
-              <Link to="/" className="flex-shrink-0">
+              <Link
+                to="/"
+                className="flex-shrink-0 text-white text-2xl font-bold"
+              >
                 {/* <img
                   className="w-8 h-8"
                   // src={profilePicUrl || "/default-profile.png"}
                   alt="Workflow"
                 /> */}
-                <a className="text-white text-2xl text-bold">Critique Me!</a>
+                Critique Me!
               </Link>
             </div>
-
+            <div className="hidden md:block w-64">
+              <SearchComponent />
+            </div>
             {/* Right side menu */}
             <div className="flex items-center">
               {/* Profile icon button (visible on md+) */}

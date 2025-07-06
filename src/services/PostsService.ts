@@ -90,3 +90,14 @@ export const getPostsByUserId = async (userId: string) => {
     throw error;
   }
 };
+
+export const getDraftPostsByUserId = async (userId: string) => {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    throw new Error("User is not authenticated");
+  }
+  const res = await axios.get(
+    `${import.meta.env.VITE_BACKEND_URL}/api/posts/drafts/${userId}`
+  );
+  return res.data;
+};

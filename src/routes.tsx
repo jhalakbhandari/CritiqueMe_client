@@ -11,6 +11,7 @@ import RedirectOnRoot from "./components/RedirectOnRoot";
 import AddPostPage from "./pages/AddPostPage";
 import AddProfilePic from "./pages/AddProfilePic";
 import SettingsLayout from "./layout/SettingsLayout";
+import UserProfile from "./pages/UserProfile";
 const AppRoutes = () => {
   return (
     <BrowserRouter>
@@ -33,11 +34,13 @@ const AppRoutes = () => {
           <Route path="/homefeed" element={<HomePage />} />
           <Route path="/userfeed" element={<UserFeed />} />
           <Route path="/posts/addPost" element={<AddPostPage />} />
+          <Route path="/profile/:id" element={<UserProfile />} />
 
           <Route path="/settings" element={<SettingsLayout />}>
             <Route path="profilepic" element={<AddProfilePic />} />
             <Route path="editprofile" element={<Settings />} />
           </Route>
+
           {/* Add more private routes here */}
           {/* Example: */}
 
