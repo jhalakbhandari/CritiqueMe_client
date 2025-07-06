@@ -37,6 +37,7 @@ const AppRoutes = () => {
           <Route path="/profile/:id" element={<UserProfile />} />
 
           <Route path="/settings" element={<SettingsLayout />}>
+            <Route index element={<Settings />} />
             <Route path="profilepic" element={<AddProfilePic />} />
             <Route path="editprofile" element={<Settings />} />
           </Route>
