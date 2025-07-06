@@ -27,7 +27,7 @@ function Login() {
     window.location.href = "http://localhost:3000/api/auth/google";
   };
   const handleRegister = () => {
-    window.location.href = "http://localhost:5173/register";
+    navigate("/register");
   };
 
   return (
