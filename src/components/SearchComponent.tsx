@@ -39,7 +39,7 @@ const SearchComponent = () => {
   };
 
   return (
-    <div className="relative w-64 bg-white">
+    <div className="relative w-64 bg-white w-full">
       <input
         type="text"
         placeholder="Search users..."
