@@ -25,7 +25,7 @@ const UserProfile = () => {
       const res = await axios.get(
         `${import.meta.env.VITE_BACKEND_URL}/api/user/profile/${paramUserId}`
       );
-      console.log("response", res.data);
+      // console.log("response", res.data);
 
       setUser(res.data);
     };
@@ -74,47 +74,47 @@ const UserProfile = () => {
   if (!user) return <div className="text-center mt-10">Loading...</div>;
 
   return (
-    <div className="min-h-screen flex flex-col items-center py-8 bg-gray-50">
-      {/* Profile Header */}
-      <div className="w-full max-w-3xl px-4">
-        <div className="flex items-center space-x-6 ml-15 mb-6">
-          <img
-            src={`${
-              import.meta.env.VITE_BACKEND_URL
-            }/api/user/${paramUserId}/profile-picture`}
-            alt="Profile"
-            className="w-24 h-24 rounded-full object-cover border-2 border-blue-600"
-          />
-          <div>
-            <h1 className="text-2xl font-bold">{user.name}</h1>
-            <p className="text-gray-600 text-sm">{user.email}</p>
-            <div className="flex gap-4 text-sm text-gray-700 mt-2">
-              <span>
-                <strong>{user.posts?.length || 0}</strong> Posts
-              </span>
-              <span>
-                <strong>{user.followers?.length || 0}</strong> Followers
-              </span>
-              <span>
-                <strong>{user.following?.length || 0}</strong> Following
-              </span>
-            </div>
-            {currentUserId !== paramUserId && (
-              <button
-                onClick={handleFollowToggle}
-                className={`mt-2 px-4 py-1 rounded text-white text-sm ${
-                  isFollowing ? "bg-red-500" : "bg-blue-600"
-                }`}
-              >
-                {isFollowing ? "Unfollow" : "Follow"}
-              </button>
-            )}
+    <div className="min-h-screen bg-gray-100 py-8 px-4 md:px-6 lg:px-8">
+      {/* Profile Info */}
+      {/* Profile Info - matched to UserFeed */}
+      <div className="max-w-3xl mx-auto flex items-center space-x-6 mb-8">
+        <img
+          src={`${
+            import.meta.env.VITE_BACKEND_URL
+          }/api/user/${paramUserId}/profile-picture?t=${Date.now()}`}
+          alt="Profile"
+          className="w-24 h-24 rounded-full border-2 border-blue-600 object-cover"
+        />
+        <div>
+          <h1 className="text-2xl font-bold">{user.name}</h1>
+          <p className="text-gray-600">{user.email}</p>
+          <div className="flex gap-4 text-sm text-gray-700 mt-2">
+            <span>
+              <strong>{user.posts?.length || 0}</strong> Posts
+            </span>
+            <span>
+              <strong>{user.followers?.length || 0}</strong> Followers
+            </span>
+            <span>
+              <strong>{user.following?.length || 0}</strong> Following
+            </span>
           </div>
+
+          {currentUserId !== paramUserId && (
+            <button
+              onClick={handleFollowToggle}
+              className={`mt-2 px-4 py-1 rounded text-white text-sm ${
+                isFollowing ? "bg-red-500" : "bg-blue-600"
+              }`}
+            >
+              {isFollowing ? "Unfollow" : "Follow"}
+            </button>
+          )}
         </div>
       </div>
 
-      {/* Posts Grid */}
-      <div className="w-full max-w-2xl px-4 space-y-4">
+      {/* Posts Section - Same as UserFeed */}
+      <div className="max-w-3xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-4">
         {user.posts.map((post: Post) => (
           <PostCard key={post.id} post={post} userId={paramUserId as string} />
         ))}
