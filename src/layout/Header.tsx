@@ -132,9 +132,12 @@ const Header = () => {
         <div className="fixed inset-0 z-50 flex items-start justify-center bg-white/1 backdrop-blur-sm backdrop-saturate-150 overflow-auto">
           <div className="w-full max-w-lg mt-6 p-4">
             <div className="flex items-center gap-4 mb-4">
-              <SearchComponent />
+              <SearchComponent
+                isSearchOpen={isSearchOpen}
+                onClose={() => setIsSearchOpen(false)}
+              />
               <button
-                onClick={toggleSearch}
+                onClick={() => setIsSearchOpen(false)}
                 className="text-black hover:text-gray-800 text-2xl font-bold"
                 aria-label="Close search"
               >
