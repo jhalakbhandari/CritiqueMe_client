@@ -8,7 +8,7 @@ const SearchComponent = () => {
   const [results, setResults] = useState<User[]>([]);
   const [showDropdown, setShowDropdown] = useState(false);
   const navigate = useNavigate();
-  console.log("🔍 SearchUsers component mounted");
+  // console.log("🔍 SearchUsers component mounted");
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -46,7 +46,7 @@ const SearchComponent = () => {
         value={query}
         onChange={(e) => {
           setQuery(e.target.value);
-          console.log("✏️ Query changed:", e.target.value);
+          // console.log("✏️ Query changed:", e.target.value);
 
           setShowDropdown(true);
         }}

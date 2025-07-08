@@ -5,7 +5,7 @@ import { isAuthenticated } from "../store/hooks";
 
 const PrivateRoute = ({ children }: { children: JSX.Element }) => {
   const auth = isAuthenticated();
-  console.log("Authenticated?", auth);
+  // console.log("Authenticated?", auth);
   return auth ? children : <Navigate to="/login" />;
 };
 

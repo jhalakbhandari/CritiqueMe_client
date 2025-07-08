@@ -22,9 +22,9 @@ const PostCard: React.FC<PostCardProps> = ({ post, userId }) => {
   const [showCommentBox, setShowCommentBox] = useState(false);
   // const [showComments, setShowComments] = useState(false);
 
-  const profilePicUrl = `${import.meta.env.VITE_BACKEND_URL}/api/user/${
-    user?.id
-  }/profile-picture?t=${Date.now()}`;
+  const profilePicUrl = `${
+    import.meta.env.VITE_BACKEND_URL
+  }/api/user/${userId}/profile-picture?t=${Date.now()}`;
 
   const toggleLike = async () => {
     const res = await fetch(

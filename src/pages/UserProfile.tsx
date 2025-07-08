@@ -13,7 +13,7 @@ export interface UserProfile {
 }
 
 const UserProfile = () => {
-  const { id } = useParams();
+  const { id: paramUserId } = useParams<{ id: string }>();
   const [user, setUser] = useState<UserProfile | null>(null);
   const [isFollowing, setIsFollowing] = useState(false);
 
@@ -23,21 +23,21 @@ const UserProfile = () => {
   useEffect(() => {
     const fetchUser = async () => {
       const res = await axios.get(
-        `${import.meta.env.VITE_BACKEND_URL}/api/user/profile/${id}`
+        `${import.meta.env.VITE_BACKEND_URL}/api/user/profile/${paramUserId}`
       );
       console.log("response", res.data);
 
       setUser(res.data);
     };
     fetchUser();
-  }, [id]);
+  }, [paramUserId]);
   useEffect(() => {
     const fetchFollowStatus = async () => {
       try {
         const res = await axios.get(
           `${
             import.meta.env.VITE_BACKEND_URL
-          }/api/user/follow-status/${id}?currentUserId=${currentUserId}`
+          }/api/user/follow-status/${paramUserId}?currentUserId=${currentUserId}`
         );
         setIsFollowing(res.data.isFollowing);
       } catch (err) {
@@ -45,14 +45,15 @@ const UserProfile = () => {
       }
     };
 
-    if (currentUserId !== id) {
+    if (currentUserId !== paramUserId) {
       fetchFollowStatus();
     }
-  }, [id, currentUserId]);
+  }, [paramUserId, currentUserId]);
+  // console.log("paramUSerId", paramUserId);
 
   const handleFollowToggle = async () => {
     await axios.post(
-      `${import.meta.env.VITE_BACKEND_URL}/api/user/follow/${id}`,
+      `${import.meta.env.VITE_BACKEND_URL}/api/user/follow/${paramUserId}`,
       {
         followerId: currentUserId,
       }
@@ -80,7 +81,7 @@ const UserProfile = () => {
           <img
             src={`${
               import.meta.env.VITE_BACKEND_URL
-            }/api/user/${id}/profile-picture`}
+            }/api/user/${paramUserId}/profile-picture`}
             alt="Profile"
             className="w-24 h-24 rounded-full object-cover border-2 border-blue-600"
           />
@@ -98,7 +99,7 @@ const UserProfile = () => {
                 <strong>{user.following?.length || 0}</strong> Following
               </span>
             </div>
-            {currentUserId !== id && (
+            {currentUserId !== paramUserId && (
               <button
                 onClick={handleFollowToggle}
                 className={`mt-2 px-4 py-1 rounded text-white text-sm ${
@@ -115,7 +116,7 @@ const UserProfile = () => {
       {/* Posts Grid */}
       <div className="w-full max-w-2xl px-4 space-y-4">
         {user.posts.map((post: Post) => (
-          <PostCard key={post.id} post={post} userId={user.id} />
+          <PostCard key={post.id} post={post} userId={paramUserId as string} />
         ))}
       </div>
     </div>

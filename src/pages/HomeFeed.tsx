@@ -14,7 +14,7 @@ function HomePage() {
     const fetchPosts = async () => {
       try {
         const res = await getAllPosts(userId);
-        console.log("Fetched posts:", res);
+        // console.log("Fetched posts:", res);
         setPosts(res);
       } catch (err) {
         console.error("Error fetching posts:", err);
