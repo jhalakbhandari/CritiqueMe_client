@@ -9,8 +9,7 @@ import UserFeed from "./pages/UserFeed";
 import Settings from "./pages/Settings";
 import RedirectOnRoot from "./components/RedirectOnRoot";
 import AddPostPage from "./pages/AddPostPage";
-import AddProfilePic from "./pages/AddProfilePic";
-import SettingsLayout from "./layout/SettingsLayout";
+
 import UserProfile from "./pages/UserProfile";
 const AppRoutes = () => {
   return (
@@ -36,11 +35,7 @@ const AppRoutes = () => {
           <Route path="/posts/addPost" element={<AddPostPage />} />
           <Route path="/profile/:id" element={<UserProfile />} />
 
-          <Route path="/settings" element={<SettingsLayout />}>
-            <Route index element={<Settings />} />
-            <Route path="profilepic" element={<AddProfilePic />} />
-            <Route path="editprofile" element={<Settings />} />
-          </Route>
+          <Route path="/settings" element={<Settings />} />
 
           {/* Add more private routes here */}
           {/* Example: */}
