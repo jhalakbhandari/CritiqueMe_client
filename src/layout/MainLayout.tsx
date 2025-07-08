@@ -5,7 +5,7 @@ const MainLayout = () => {
   return (
     <div className="min-h-screen bg-gray-100">
       <Header />
-      <main className="p-4 bg-white">
+      <main className="p-0 sm:p-4 bg-white">
         <Outlet /> {/* This renders the nested page content */}
       </main>
     </div>

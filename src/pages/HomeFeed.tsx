@@ -25,8 +25,8 @@ function HomePage() {
   }, []);
 
   return (
-    <div className="min-h-screen flex justify-center py-8">
-      <div className="w-full max-w-xl px-4 md:px-0 md:w-3/5">
+    <div className="min-h-screen flex justify-center py-4 sm:py-6 md:py-8 px-2">
+      <div className="w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl">
         <div className="space-y-6">
           {posts.map((post) => (
             <PostCard key={post.id} post={post} userId={userId} />
