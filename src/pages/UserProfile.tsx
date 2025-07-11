@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import PostCard from "../components/PostCard";
 import type { Post } from "./UserFeed";
+import userIcon from "../assets/user-icon.png";
 export interface UserProfile {
   id: string;
   name: string;
@@ -19,7 +20,11 @@ const UserProfile = () => {
 
   const localUser = JSON.parse(localStorage.getItem("user") || "{}");
   const currentUserId = localUser.id;
-
+  const [imgSrc] = useState(
+    `${
+      import.meta.env.VITE_BACKEND_URL
+    }/api/user/${paramUserId}/profile-picture?t=${Date.now()}`
+  );
   useEffect(() => {
     const fetchUser = async () => {
       const res = await axios.get(
@@ -79,9 +84,7 @@ const UserProfile = () => {
       {/* Profile Info - matched to UserFeed */}
       <div className="max-w-3xl mx-auto flex items-center space-x-6 mb-8">
         <img
-          src={`${
-            import.meta.env.VITE_BACKEND_URL
-          }/api/user/${paramUserId}/profile-picture?t=${Date.now()}`}
+          src={imgSrc || userIcon}
           alt="Profile"
           className="w-24 h-24 rounded-full border-2 border-blue-600 object-cover"
         />

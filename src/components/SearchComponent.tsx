@@ -1,8 +1,8 @@
-// SearchComponent.tsx
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import type { User } from "../services/AuthService";
+import userIcon from "../assets/user-icon.png";
 
 type Props = {
   isSearchOpen?: boolean;
@@ -13,6 +13,8 @@ const SearchComponent = ({ isSearchOpen = true, onClose }: Props) => {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<User[]>([]);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [imgFallbacks, setImgFallbacks] = useState<Record<string, string>>({});
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -41,7 +43,7 @@ const SearchComponent = ({ isSearchOpen = true, onClose }: Props) => {
     navigate(`/profile/${id}`);
     setQuery("");
     setShowDropdown(false);
-    onClose?.(); // 👈 close the search overlay
+    onClose?.();
   };
 
   useEffect(() => {
@@ -51,6 +53,13 @@ const SearchComponent = ({ isSearchOpen = true, onClose }: Props) => {
       setShowDropdown(false);
     }
   }, [isSearchOpen]);
+
+  const handleImageError = (userId: string) => {
+    setImgFallbacks((prev) => ({
+      ...prev,
+      [userId]: userIcon,
+    }));
+  };
 
   return (
     <div className="relative w-64 bg-white w-full">
@@ -66,25 +75,32 @@ const SearchComponent = ({ isSearchOpen = true, onClose }: Props) => {
       />
       {showDropdown && results.length > 0 && (
         <div className="absolute z-10 mt-1 w-full bg-white border rounded shadow">
-          {results.map((user) => (
-            <div
-              key={user.id}
-              onClick={() => handleClickUser(user.id)}
-              className="cursor-pointer px-4 py-2 hover:bg-gray-100 flex items-center gap-3"
-            >
-              <img
-                src={`${import.meta.env.VITE_BACKEND_URL}/api/user/${
-                  user.id
-                }/profile-picture`}
-                alt={user.name}
-                className="w-8 h-8 rounded-full object-cover border border-gray-300"
-              />
-              <div>
-                <div className="font-semibold">{user.name}</div>
-                <div className="text-xs text-gray-500">{user.email}</div>
+          {results.map((user) => {
+            const imgSrc =
+              imgFallbacks[user.id] ||
+              `${import.meta.env.VITE_BACKEND_URL}/api/user/${
+                user.id
+              }/profile-picture`;
+
+            return (
+              <div
+                key={user.id}
+                onClick={() => handleClickUser(user.id)}
+                className="cursor-pointer px-4 py-2 hover:bg-gray-100 flex items-center gap-3"
+              >
+                <img
+                  src={imgSrc}
+                  onError={() => handleImageError(user.id)}
+                  alt={user.name}
+                  className="w-8 h-8 rounded-full object-cover border border-gray-300"
+                />
+                <div>
+                  <div className="font-semibold">{user.name}</div>
+                  <div className="text-xs text-gray-500">{user.email}</div>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
     </div>

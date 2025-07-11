@@ -1,22 +1,23 @@
-// export const isAuthenticated = (): boolean => {
-//   const user = localStorage.getItem("user");
-//   if (!user) return false;
+import { useEffect, useState } from "react";
 
-//   try {
-//     const parsed = JSON.parse(user);
-
-//     if (!parsed.token) return false;
-
-//     // Try to decode the JWT to extract the expiration
-//     const payload = JSON.parse(atob(parsed.token.split(".")[1]));
-//     const isValid = payload.exp * 1000 > Date.now();
-
-//     return isValid;
-//   } catch (error) {
-//     console.error("Error decoding token:", error);
-//     return false;
-//   }
-// };
 export function isAuthenticated(): boolean {
   return !!localStorage.getItem("token");
+}
+export function useIsAdmin() {
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    try {
+      const tokenData = localStorage.getItem("user");
+      if (!tokenData) return;
+
+      const user = JSON.parse(tokenData);
+      setIsAdmin(user?.role === "admin");
+    } catch (error) {
+      console.error("Failed to parse user data:", error);
+      setIsAdmin(false);
+    }
+  }, []);
+
+  return isAdmin;
 }

@@ -8,6 +8,7 @@ import {
 import type { User } from "../services/AuthService";
 import axios from "axios";
 import PostCard from "../components/PostCard";
+import userIcon from "../assets/user-icon.png";
 export type Post = CreatePostPayload & {
   id: string;
   userId: string;
@@ -76,7 +77,7 @@ const UserFeed = () => {
       {/* User Profile Info */}
       <div className="max-w-3xl mx-auto flex items-center space-x-6 mb-8">
         <img
-          src={profilePicUrl}
+          src={profilePicUrl || userIcon}
           alt="Profile"
           className="w-24 h-24 rounded-full border-2 border-blue-600 object-cover"
         />

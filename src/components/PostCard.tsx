@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FaHeart, FaRegHeart, FaRegCommentDots, FaShare } from "react-icons/fa";
 import type { Post } from "../pages/UserFeed";
 import CommentSection from "./CommentSection";
+import userIcon from "../assets/user-icon.png";
 interface PostCardProps {
   post: Post;
   userId: string;
@@ -66,7 +67,7 @@ const PostCard: React.FC<PostCardProps> = ({ post, userId }) => {
 
   return (
     <div
-      className="bg-white p-4 sm:p-6 rounded-lg shadow-md"
+      className="bg-white p-4 sm:p-6 "
       style={{ backgroundColor: "rgb(1, 41, 95)" }}
     >
       <div className="flex flex-col sm:flex-row">
@@ -75,7 +76,7 @@ const PostCard: React.FC<PostCardProps> = ({ post, userId }) => {
           {/* Header */}
           <div className="flex items-center mb-3">
             <img
-              src={profilePicUrl}
+              src={profilePicUrl || userIcon}
               alt={`${user?.name}'s profile`}
               className="w-10 h-10 rounded-full mr-3"
             />

@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../services/AuthService";
 import SearchComponent from "../components/SearchComponent";
 import { FaSearch } from "react-icons/fa";
+import userIcon from "../assets/user-icon.png";
 
 const Header = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -70,7 +71,7 @@ const Header = () => {
                   aria-expanded={isDropdownOpen}
                 >
                   <img
-                    src={profilePicUrl || "/default-profile.png"}
+                    src={profilePicUrl || userIcon}
                     alt="Profile"
                     className="w-8 h-8 rounded-full object-cover border-2 border-white"
                   />
@@ -100,7 +101,7 @@ const Header = () => {
         </div>
 
         {isDropdownOpen && (
-          <div className="absolute right-4 mt-2 w-56 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 z-50">
+          <div className="absolute right-4 mt-2 w-56 origin-top-right bg-white ring-1 ring-black ring-opacity-5 z-50">
             <div className="py-1" role="menu" aria-orientation="vertical">
               <Link
                 to="/userfeed"
