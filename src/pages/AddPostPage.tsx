@@ -118,12 +118,13 @@ function AddPostPage() {
           />
 
           <select
-            value={status}
+            // value={status}
+            value="public"
             onChange={(e) => setStatus(e.target.value)}
             className="w-full px-4 py-2 border focus:outline-blue-500"
           >
             <option value="public">Public</option>
-            <option value="private">Private</option>
+            {/* <option value="private">Private</option> */}
           </select>
 
           <button

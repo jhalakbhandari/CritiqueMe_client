@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-  getDraftPostsByUserId,
+  // getDraftPostsByUserId,
   getPostsByUserId,
   type CreatePostPayload,
 } from "../services/PostsService";
@@ -30,7 +30,7 @@ export type Post = CreatePostPayload & {
 const UserFeed = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [user, setUser] = useState<User | null>(null);
-  const [showDrafts, setShowDrafts] = useState(false);
+  // const [showDrafts, setShowDrafts] = useState(false);
   const navigate = useNavigate();
 
   const userData = localStorage.getItem("user");
@@ -43,17 +43,26 @@ const UserFeed = () => {
     import.meta.env.VITE_BACKEND_URL
   }/api/user/${userId}/profile-picture?t=${Date.now()}`;
 
+  // const fetchPosts = async () => {
+  //   try {
+  //     const res = showDrafts
+  //       ? await getDraftPostsByUserId(userId)
+  //       : await getPostsByUserId(userId);
+  //     setPosts(res);
+  //   } catch (err) {
+  //     console.error("Error fetching posts:", err);
+  //   }
+  // };
   const fetchPosts = async () => {
     try {
-      const res = showDrafts
-        ? await getDraftPostsByUserId(userId)
-        : await getPostsByUserId(userId);
+      // const res = showDrafts
+      //   ? await getDraftPostsByUserId(userId)
+      const res = await getPostsByUserId(userId);
       setPosts(res);
     } catch (err) {
       console.error("Error fetching posts:", err);
     }
   };
-
   const fetchUser = async () => {
     try {
       const res = await axios.get(
@@ -65,11 +74,14 @@ const UserFeed = () => {
     }
   };
 
+  // useEffect(() => {
+  //   fetchUser();
+  //   fetchPosts();
+  // }, [showDrafts]);
   useEffect(() => {
     fetchUser();
     fetchPosts();
-  }, [showDrafts]);
-
+  }, []);
   if (!user) return <div className="text-center mt-10">Loading...</div>;
 
   return (
@@ -106,14 +118,14 @@ const UserFeed = () => {
         >
           Add Post
         </button>
-        <button
+        {/* <button
           className={`flex-1 ${
             showDrafts ? "bg-red-600" : "bg-blue-600"
           } text-white py-2 px-4 rounded hover:opacity-90`}
           onClick={() => setShowDrafts(!showDrafts)}
         >
           {showDrafts ? "Show Published Posts" : "See Draft Posts"}
-        </button>
+        </button> */}
       </div>
 
       {/* Posts Section */}
